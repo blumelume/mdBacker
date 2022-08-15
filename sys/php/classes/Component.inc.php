@@ -19,6 +19,10 @@ class Component {
     return true;
   }
 
+  function determineDefault( $file ) {
+    return substr($file, 0, 3) === 'def';
+  }
+
   /*
   parseSetup()
   * parsing setup.json
@@ -28,10 +32,16 @@ class Component {
     $this->setup = new Config(
       ($this->parent !== null) ? $this->parent->setup->path : $this->path.'/'.$this->name.'.json'
     );
+
+    $this->config = $this->determineDefault($this->setup->data['config']);
+    // if config is a sys-default, look in defaults location
     $this->config = new Config(
-      (($this->parent !== null) ? locComponents.$this->name : locConfigs.$this->setup->data['config']) . '.json'
+      (($this->parent !== null) ? locComponents.$this->name : ($this->config ? locDef.'configs/' : locConfigs) . $this->setup->data['config']) . '.json'
     );
-    $this->template = locTemplates. (($this->parent !== null) ? $this->config->data['template'] : $this->setup->data['template']) .'.php';
+
+    $this->template = (($this->parent !== null) ? $this->config->data['template'] : $this->setup->data['template']);
+    // if template is a sys-default, look in defaults location
+    $this->template = (($this->determineDefault($this->template)) ? locDef.'templates/' : locTemplates) . $this->template .'.php'; 
   }
 
   protected function setupFields() {

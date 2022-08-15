@@ -1,0 +1,14 @@
+{
+  "fields": {
+    
+    "title": {
+      "type": "plain",
+      "required": true
+    },
+    "content": {
+      "type": "md",
+      "required": true
+    }
+
+  }
+}

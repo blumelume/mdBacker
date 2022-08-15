@@ -11,6 +11,8 @@ define('locSys', ROOTPATH.'/sys/');
 define('locLogs', ROOTPATH.'/logs/');
 define('locFiles', ROOTPATH.'/files/');
 
+define('locDef', locSys.'def/');
+
 define('locConfigs', locFiles.'configs/');
 define('locTemplates', locFiles.'templates/');
 define('locPages', locFiles.'pages/');
