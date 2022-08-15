@@ -28,5 +28,9 @@ $page = new Page(
   $pageName,
   locPages.$pagePath
 );
-$page->insert();
+if ($page) {
+  $page->insert();
+} else {
+  throw $page;
+}
 ?>

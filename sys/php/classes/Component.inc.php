@@ -15,6 +15,8 @@ class Component {
 
     $this->setup();
     $this->setupFields();
+
+    return true;
   }
 
   /*
@@ -102,6 +104,9 @@ class Component {
 
       case 'comp': // File is Component -> create and return Object
         $c = new Component( $field, locPages, $this, $fieldsArray );
+        if (!$c) {
+          throw $c;
+        }
         return $c;
       
       case 'int':
