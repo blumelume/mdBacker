@@ -40,7 +40,7 @@ class Component {
     $this->config = $this->determineDefault($this->setup->data['config']);
     // if config is a sys-default, look in defaults location
     $this->config = new Config(
-      (($this->parent !== null) ? ($this->config) ? locDef.'configs/'.$this->name : locComponents.$this->name : ($this->config ? locDef.'configs/' : locConfigs) . $this->setup->data['config']) . '.json'
+      (($this->parent !== null) ? ($this->config ? locDef.'components/'.$this->name : locComponents.$this->name) : ($this->config ? locDef.'configs/' : locConfigs) . $this->setup->data['config']) . '.json'
     );
 
     $this->template = (($this->parent !== null) ? $this->config->data['template'] : $this->setup->data['template']);
@@ -76,8 +76,7 @@ class Component {
       }
 
       $fieldContent = $fieldsArray[$field];
-      
-      if (gettype($fieldContent) === 'string') {
+      if (gettype($fieldContent) === 'string' && $this->parent === null) {
         $prevDir = getcwd();
         chdir( $this->path );
         if ( file_exists($fieldContent) ){ // content is path to file
