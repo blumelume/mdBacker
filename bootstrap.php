@@ -30,28 +30,10 @@ set_exception_handler([$exceptionHandler, 'handle']);
 /*
 local dependencies
 */
-
 require(locSys.'php/lib/Parsedown.php');
 $GLOBALS['pd'] = new Parsedown();
 
 /*
 global functions
 */
-function recursiveRemove($dir) {
-  $structure = glob(rtrim($dir, "/").'/*');
-  if (is_array($structure)) {
-      foreach($structure as $file) {
-          if (is_dir($file)) recursiveRemove($file);
-          elseif (is_file($file)) unlink($file);
-      }
-  }
-  rmdir($dir);
-}
-
-function backToRoot() {
-  if (getcwd() != '/') {
-    chdir('../');
-  }
-  return (getcwd() == '/') ? true : backToRoot();
-}
 ?>
