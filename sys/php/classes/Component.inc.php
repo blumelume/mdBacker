@@ -76,6 +76,7 @@ class Component {
       }
 
       $fieldContent = $fieldsArray[$field];
+
       if (gettype($fieldContent) === 'string' && $this->parent === null) {
         $prevDir = getcwd();
         chdir( $this->path );
