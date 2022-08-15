@@ -1,2 +1,13 @@
+Options +FollowSymlinks
 RewriteEngine On
+
+# Don't Rewrite For These filetypes
+RewriteCond %{REQUEST_URI}  !\.(bmp|css|gif|ico|jpg|jpeg|js|png|shtml|zip|mp3|mpeg|wav|pdf|xml|txt)$ [NC]
+
+# Don't Rewrite For Existing Files
+RewriteCond %{REQUEST_FILENAME} !-f [NC]
+
+# Don't Rewrite For Existing Directories Except for the root directory
+RewriteCond %{REQUEST_FILENAME} !-d [NC,OR]
+
 RewriteRule ^(.*)$ main.php?p=$1 [NC,L,QSA]
