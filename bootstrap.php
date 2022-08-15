@@ -2,6 +2,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
+// including all classes
+require(locSys.'php/classes/classes.inc');
+
 /*
 Constant System-Paths
 */
@@ -15,10 +18,16 @@ define('locTemplates', locFiles.'templates/');
 define('locPages', locFiles.'pages/');
 define('locComponents', locFiles.'components/');
 
+
+/*
+error / exception handling
+*/
+set_exception_handler(['ExceptionHandler', 'handle']);
+
+
 /*
 local dependencies
 */
-require(locSys.'php/classes/classes.inc');
 
 require(locSys.'php/lib/Parsedown.php');
 $GLOBALS['pd'] = new Parsedown();
