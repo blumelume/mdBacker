@@ -1,0 +1,14 @@
+{
+  "template": "def_heading",
+  
+  "fields": {
+    "level": {
+      "type": "int",
+      "required": true
+    },
+    "content": {
+      "type": "plain",
+      "required": true
+    }
+  }
+}
