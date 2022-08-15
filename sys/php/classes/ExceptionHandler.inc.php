@@ -1,9 +1,14 @@
 <?php
-class FieldTypeException extends Exception {
-  function __construct($type, $value) {
-    $message = 'Field of type "'.$type.'" provided with value of type "'.gettype($value).'".';
-    $code = 0;
+class FieldException extends Exception {
+  function __construct(int $code, array $info) {
     $previous = null;
+    
+    $message = match ($code) {
+      300 => 'Value for required field "'.$info[0].'" could not be found.',
+      200 => 'Field of type "'.$info[0].'" provided with value of type "'.gettype($info[1]).'".',
+      100 => 'Unknown field-type "'.$info[0].'".'
+    };
+
     parent::__construct($message, $code, $previous);
   }
 }
@@ -12,10 +17,9 @@ class PageException extends Exception {
     $previous = null;
     
     $message = ' '.$code.' - ';
-    switch ($code) {
-      case 404:
-        $message .= 'The requested page could not be found.';
-    }
+    $message .= match ($code) {
+      404 => 'The requested page could not be found.'
+    };
 
     parent::__construct($message, $code, $previous);
   }
