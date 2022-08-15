@@ -95,14 +95,28 @@ class Component {
         return $GLOBALS['pd']->text( $fieldContent );
 
       case 'json': // File is JSON -> json_decode
-        return json_decode( $fieldContent, true );
+        return $fieldContent;
+
+      case 'html':
+        return $fieldContent;
 
       case 'comp': // File is Component -> create and return Object
         $c = new Component( $field, locPages, $this, $fieldsArray );
         return $c;
-    }
+      
+      case 'int':
+        if (filter_var($fieldContent, FILTER_VALIDATE_INT)) {
+          return $fieldContent;
+        }
+        // throw exception
+        die('Field-Error: Field of type '.$fieldType.' provided with value of type '.gettype($fieldContent));
 
-    return $fieldContent;
+      case 'plain':
+        return $fieldContent;
+
+      default: // File-type unknown
+        return 'Field-Error: Provided with unknown Field-Type.';
+    }
   }
 
   public function insert() {
