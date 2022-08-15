@@ -3,7 +3,7 @@ chdir( $_SERVER['DOCUMENT_ROOT'] );
 require('bootstrap.php');
 
 if (!isset($_GET['p'])) {
-  die('this page could not be found!');
+  throw new PageException( 404 );
 }
 
 $pagePath = $_GET['p'];
@@ -14,8 +14,8 @@ $pageName = $pagePathArray[ count($pagePathArray)-1 ];
 chdir(locPages);
 foreach( $pagePathArray as $page ) {
   
-  if (! chdir($page) ) {
-    die( 'this page could not be found' );
+  if (!file_exists($page) ) {
+    throw new PageException( 404 );
   }
 
 }

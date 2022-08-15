@@ -7,6 +7,19 @@ class FieldTypeException extends Exception {
     parent::__construct($message, $code, $previous);
   }
 }
+class PageException extends Exception {
+  function __construct($code) {
+    $previous = null;
+    
+    $message = ' '.$code.' - ';
+    switch ($code) {
+      case 404:
+        $message .= 'The requested page could not be found.';
+    }
+
+    parent::__construct($message, $code, $previous);
+  }
+}
 
 class ExceptionHandler {
   function __construct() {
