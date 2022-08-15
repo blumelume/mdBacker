@@ -15,20 +15,13 @@ define('locTemplates', locFiles.'templates/');
 define('locPages', locFiles.'pages/');
 define('locComponents', locFiles.'components/');
 
-// relative to page-folder
-//define('locFields', 'fields/');
-
-
 /*
-local depencies
+local dependencies
 */
 require(locSys.'php/classes/classes.inc');
 
 require(locSys.'php/lib/Parsedown.php');
 $GLOBALS['pd'] = new Parsedown();
-
-require(locSys.'php/errHandler.php');
-//set_exception_handler('exception_handler');
 
 /*
 global functions
