@@ -14,18 +14,21 @@ function getPageFromString( $string ) {
 
 if (!isset($_GET['p'])) {
    header('HTTP/1.1 404 Not Found');
-   die();
+   $pageObject = getPageFromString( '404' );
 }
 
-
-$pageObject = getPageFromString( $_GET['p'] );
+if ($_GET['p'] === '') { // root-directory to home-page
+  redirect('home');
+} else {
+  $pageObject = getPageFromString( $_GET['p'] );
+}
 
 chdir(locPages);
 foreach( $pageObject['pathArray'] as $page ) {
 
   if (!file_exists($page) ) {
-     header('HTTP/1.1 404 Not Found');
-     die();
+    header('HTTP/1.1 404 Not Found');
+    $pageObject = getPageFromString( '404' );
   }
 
 }
