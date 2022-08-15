@@ -1,6 +1,6 @@
 <?php
 chdir( $_SERVER['DOCUMENT_ROOT'] );
-require('sys.php');
+require('bootstrap.php');
 
 if (!isset($_GET['p'])) {
   die('this page could not be found!');
