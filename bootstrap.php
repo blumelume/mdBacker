@@ -2,9 +2,6 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-// including all classes
-require(locSys.'php/classes/classes.inc');
-
 /*
 Constant System-Paths
 */
@@ -17,6 +14,9 @@ define('locConfigs', locFiles.'configs/');
 define('locTemplates', locFiles.'templates/');
 define('locPages', locFiles.'pages/');
 define('locComponents', locFiles.'components/');
+
+// including all required classes
+require(locSys.'php/classes/classes.inc');
 
 
 /*
