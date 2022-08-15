@@ -38,4 +38,8 @@ $GLOBALS['mdParser'] = new Parsedown();
 /*
 global functions
 */
+function redirect($loc) {
+  header('Location: '.$loc);
+  die();
+}
 ?>
