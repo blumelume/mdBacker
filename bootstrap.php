@@ -8,6 +8,7 @@ Constant System-Paths
 define('ROOTPATH', __DIR__);
 // relative to root-dir
 define('locSys', ROOTPATH.'/sys/');
+define('locLogs', ROOTPATH.'/logs/');
 define('locFiles', ROOTPATH.'/files/');
 
 define('locConfigs', locFiles.'configs/');
@@ -22,7 +23,8 @@ require(locSys.'php/classes/classes.inc');
 /*
 error / exception handling
 */
-set_exception_handler(['ExceptionHandler', 'handle']);
+$exceptionHandler = new ExceptionHandler();
+set_exception_handler([$exceptionHandler, 'handle']);
 
 
 /*

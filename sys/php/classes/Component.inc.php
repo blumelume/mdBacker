@@ -109,7 +109,8 @@ class Component {
           return $fieldContent;
         }
         // throw exception
-        die('Field-Error: Field of type '.$fieldType.' provided with value of type '.gettype($fieldContent));
+        throw new InvalidArgumentException( 'Field-Error: Field of type '.$fieldType.' provided with value of type '.gettype($fieldContent) );
+        //die('Field-Error: Field of type '.$fieldType.' provided with value of type '.gettype($fieldContent));
 
       case 'plain':
         return $fieldContent;
