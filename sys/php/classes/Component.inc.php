@@ -76,18 +76,16 @@ class Component {
       }
 
       $fieldContent = $fieldsArray[$field];
-    }
-
-    /*
-    todo:
-    field->content can be path to file
-
-    if (gettype($fieldContent) === 'string') {
-      if ( file_exists($fieldContent) ){ // content is path to file
-        $fieldContent = file_get_contents( $fieldContent );
+      
+      if (gettype($fieldContent) === 'string') {
+        $prevDir = getcwd();
+        chdir( $this->path );
+        if ( file_exists($fieldContent) ){ // content is path to file
+          $fieldContent = file_get_contents( $fieldContent );
+        }
+        chdir($prevDir);
       }
     }
-    */
 
     switch ($fieldType) { 
       case 'md': // File is Markdown -> parse with Parsedown
