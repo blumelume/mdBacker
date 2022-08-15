@@ -33,7 +33,7 @@ set_exception_handler([$exceptionHandler, 'handle']);
 local dependencies
 */
 require(locSys.'php/lib/Parsedown.php');
-$GLOBALS['pd'] = new Parsedown();
+$GLOBALS['mdParser'] = new Parsedown();
 
 /*
 global functions

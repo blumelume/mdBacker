@@ -89,7 +89,7 @@ class Component {
 
     switch ($fieldType) { 
       case 'md': // File is Markdown -> parse with Parsedown
-        return $GLOBALS['pd']->text( $fieldContent );
+        return $GLOBALS['mdParser']->text( $fieldContent );
 
       case 'json': // File is JSON -> json_decode
         return $fieldContent;
