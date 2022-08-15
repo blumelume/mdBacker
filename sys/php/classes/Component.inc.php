@@ -24,9 +24,13 @@ class Component {
   }
 
   /*
-  parseSetup()
-  * parsing setup.json
-  * setting template and config
+  setup()
+  * setup the component
+  * find and instantiate setup-file, config and template 
+  * when component has a parent (is not a page)
+    * the parents setup-file and is used
+    * the config is looked up in the components-dir
+    * the template is determined by the config, instead of the setup-file
   */
   protected function setup() {
     $this->setup = new Config(
@@ -36,7 +40,7 @@ class Component {
     $this->config = $this->determineDefault($this->setup->data['config']);
     // if config is a sys-default, look in defaults location
     $this->config = new Config(
-      (($this->parent !== null) ? locComponents.$this->name : ($this->config ? locDef.'configs/' : locConfigs) . $this->setup->data['config']) . '.json'
+      (($this->parent !== null) ? ($this->config) ? locDef.'configs/'.$this->name : locComponents.$this->name : ($this->config ? locDef.'configs/' : locConfigs) . $this->setup->data['config']) . '.json'
     );
 
     $this->template = (($this->parent !== null) ? $this->config->data['template'] : $this->setup->data['template']);
@@ -50,20 +54,11 @@ class Component {
     }
   }
 
-  protected function getParentList() {
-    $parentList = array();
-    $p = $this->parent;
-    while ($p !== null) {
-      array_push($parentList, $p->name);
-      $p = $p->parent;
-    }
-    return $parentList;
-  }
-
   /*
-  getFieldData()
-  * getting data for a given field from the corresponding file
-  * currently supported file-types: Markdown(md), JSON(json), Component(comp), HTML(html)
+  parseField()
+  * determining the value of a given field
+  * according to different data-types
+  * currently supported types: md(Markdown), json, html, int(INTEGER), plain
   */
   protected function parseField( $field, $attr ) {
     $fieldRequired = $attr['required'];
@@ -72,18 +67,10 @@ class Component {
     $fieldsArray = ($this->fields === null) ? $this->setup->data['fields'] : $this->fields;
     $fieldsArray = ($fieldType === 'comp') ? $fieldsArray[$field] : $fieldsArray;
 
-    // $parents = $this->getParentList();
-    // if ($fieldType === 'comp') {
-    //   for($i = 0; $i < count($parents)-1; $i++) {
-    //     $fieldsArray = $fieldsArray[$p];
-    //   }
-    //   //$fieldsArray = $fieldsArray[$field];
-    // }
-
     if ($fieldType !== 'comp') {
       if (!array_key_exists($field, $fieldsArray)) {
         if ($fieldRequired) {
-          return 'Field-Error: Data to a required field "'.$field.'" could not be found.<br>';
+          throw new FieldException(300, [$field]);
         }
         return;
       }
@@ -121,7 +108,7 @@ class Component {
       
       case 'int':
         if (!filter_var($fieldContent, FILTER_VALIDATE_INT)) {
-          throw new FieldTypeException( $fieldType, $fieldContent );
+          throw new FieldException( 200, [$fieldType, $fieldContent] );
         }
         return $fieldContent;
 
@@ -129,15 +116,12 @@ class Component {
         return $fieldContent;
 
       default: // File-type unknown
-        throw new FieldTypeException( $fieldType, $fieldContent );
+        throw new FieldException( 100, [$fieldType] );
         return;
     }
   }
 
   public function insert() {
-    // echo '<strong>'.$this->name.'</strong>: ';
-    // var_dump($this);
-    // echo '<br><br>';
     include_once( $this->template );
   }
 }
