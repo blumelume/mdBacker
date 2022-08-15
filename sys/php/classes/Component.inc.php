@@ -105,18 +105,17 @@ class Component {
         return $c;
       
       case 'int':
-        if (filter_var($fieldContent, FILTER_VALIDATE_INT)) {
-          return $fieldContent;
+        if (!filter_var($fieldContent, FILTER_VALIDATE_INT)) {
+          throw new FieldTypeException( $fieldType, $fieldContent );
         }
-        // throw exception
-        throw new InvalidArgumentException( 'Field-Error: Field of type '.$fieldType.' provided with value of type '.gettype($fieldContent) );
-        //die('Field-Error: Field of type '.$fieldType.' provided with value of type '.gettype($fieldContent));
+        return $fieldContent;
 
       case 'plain':
         return $fieldContent;
 
       default: // File-type unknown
-        return 'Field-Error: Provided with unknown Field-Type.';
+        throw new FieldTypeException( $fieldType, $fieldContent );
+        return;
     }
   }
 
