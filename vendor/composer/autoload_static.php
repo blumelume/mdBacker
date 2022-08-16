@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit294c8d177e13c3d24fb65d27de5261ba
 {
+    public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'ScssPhp\\ScssPhp\\' => 16,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'ScssPhp\\ScssPhp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
+        ),
+    );
+
     public static $prefixesPsr0 = array (
         'P' => 
         array (
@@ -23,6 +37,8 @@ class ComposerStaticInit294c8d177e13c3d24fb65d27de5261ba
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit294c8d177e13c3d24fb65d27de5261ba::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit294c8d177e13c3d24fb65d27de5261ba::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit294c8d177e13c3d24fb65d27de5261ba::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit294c8d177e13c3d24fb65d27de5261ba::$classMap;
 
