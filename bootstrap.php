@@ -32,7 +32,7 @@ set_exception_handler([$exceptionHandler, 'handle']);
 /*
 local dependencies
 */
-require(locSys.'php/lib/Parsedown.php');
+require_once ROOTPATH.'/vendor/autoload.php';
 $GLOBALS['mdParser'] = new Parsedown();
 
 /*
