@@ -1,4 +1,6 @@
 <?php
+namespace mdBacker\cabinet\classes;
+
 class Config {
   
   public $path;

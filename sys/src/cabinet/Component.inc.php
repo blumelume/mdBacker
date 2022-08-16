@@ -1,4 +1,6 @@
 <?php
+namespace mdBacker\cabinet\classes;
+
 class Component {
   public $name;
   public $template;

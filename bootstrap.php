@@ -19,7 +19,12 @@ define('locPages', locFiles.'pages/');
 define('locComponents', locFiles.'components/');
 
 // including all required classes
-require(locSys.'php/classes/classes.inc');
+$classes = array_merge(
+  require(locSys.'src/cabinet/loader.inc.php')
+);
+foreach($classes as $c) {
+  require($c);
+}
 
 
 /*
