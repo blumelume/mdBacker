@@ -1,6 +1,10 @@
 {
   "fields": {
     
+    "def_head": {
+      "type": "comp",
+      "required": true
+    },
     "title": {
       "type": "plain",
       "required": true

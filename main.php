@@ -38,7 +38,7 @@ chdir(ROOTPATH); // Changing back to the system-root
 /*
 Setting up the page
 */
-$page = new \mdBacker\cabinet\classes\Page(
+$GLOBALS['page'] = new \mdBacker\cabinet\classes\Page(
   $pageObject['name'],
   locPages.$pageObject['path']
 );

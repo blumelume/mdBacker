@@ -1,0 +1,22 @@
+{
+  "template": "def_head",
+
+  "fields": {
+    "metaTitle": {
+      "type": "plain",
+      "required": false
+    }, 
+    "metaDescription": {
+      "type": "plain",
+      "required": false
+    },
+    "scripts": {
+      "type": "json",
+      "required": false
+    },
+    "stylesheets": {
+      "type": "json",
+      "required": false
+    }
+  }
+}
