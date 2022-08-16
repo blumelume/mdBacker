@@ -19,11 +19,14 @@ define('locPages', locFiles.'pages/');
 define('locComponents', locFiles.'components/');
 
 // including all required classes
-$classes = array_merge(
+$classes = array(
+  array(locSys.'src/ExceptionHandler.inc.php'),
   require(locSys.'src/cabinet/loader.inc.php')
 );
 foreach($classes as $c) {
-  require($c);
+  foreach ($c as $class) {
+    require($class);
+  }
 }
 
 
