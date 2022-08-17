@@ -1,5 +1,16 @@
 <?php
-require('bootstrap.php');
+/**/
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+require('../bootstrap.php');
+\mdBacker\sys\includeClasses( __DIR__ );
+
+require_once ROOTPATH.'/vendor/autoload.php';
+$GLOBALS['mdParser'] = new Parsedown();
+
+/**/
 
 function getPageFromString( $string ) {
   $a = array(
