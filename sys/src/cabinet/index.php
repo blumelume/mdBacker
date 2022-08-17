@@ -1,5 +1,4 @@
 <?php
-chdir( $_SERVER['DOCUMENT_ROOT'] );
 require('bootstrap.php');
 
 function getPageFromString( $string ) {

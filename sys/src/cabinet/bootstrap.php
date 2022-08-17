@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 /*
 Constant System-Paths
 */
-define('ROOTPATH', __DIR__);
+define('ROOTPATH', $_SERVER['DOCUMENT_ROOT'].'/mdBacker/');
 // relative to root-dir
 define('locSys', ROOTPATH.'/sys/');
 define('locLogs', ROOTPATH.'/logs/');
