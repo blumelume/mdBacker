@@ -28,7 +28,7 @@ if (!isset($_GET['p'])) {
 }
 
 if ($_GET['p'] === '') { // root-directory to home-page
-  redirect('home');
+  \mdBacker\sys\redirect('home');
 } else {
   $pageObject = getPageFromString( $_GET['p'] );
 }
