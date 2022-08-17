@@ -23,12 +23,18 @@ $lectern = new \mdBacker\lectern\classes\Lectern();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- css -->
-    <?= $lectern->compileScss( '@import "'.__DIR__.'/css/main.scss"' ); ?>
+    <style type="text/css">
+      <?= $lectern->compileScss( '@import "'.__DIR__.'/css/global.scss"' ); ?>
+    </style>
   </head>
 
-  <body>
+  <body class="mdBacker lectern">
 
-    <?php var_dump($lectern->page); ?>
+    <header class="header">
+      <p class="h5 bold c-primary">scribunus</p>
+      <p class="h4 light c-dim ">/</p>
+      <p class="h5 light c-grey">lectern</p>
+    </header>
 
   </body>
 </html>
