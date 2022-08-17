@@ -2,21 +2,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-/*
-Constant System-Paths
-*/
-define('ROOTPATH', $_SERVER['DOCUMENT_ROOT'].'/mdBacker/');
-// relative to root-dir
-define('locSys', ROOTPATH.'/sys/');
-define('locLogs', ROOTPATH.'/logs/');
-define('locFiles', ROOTPATH.'/files/');
-
-define('locDef', locSys.'def/');
-
-define('locConfigs', locFiles.'configs/');
-define('locTemplates', locFiles.'templates/');
-define('locPages', locFiles.'pages/');
-define('locComponents', locFiles.'components/');
+require( '../bootstrap.php' );
 
 // including all required classes
 $classes = array(
@@ -28,7 +14,6 @@ foreach($classes as $c) {
     require($class);
   }
 }
-
 
 /*
 error / exception handling
