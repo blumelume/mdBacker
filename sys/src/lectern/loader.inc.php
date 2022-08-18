@@ -1,7 +1,10 @@
 <?php
-namespace mdBacker\lectern\classes;
-
 return array(
-  __DIR__.'/classes/'.'Lectern.inc.php'
+  'classes' => array(
+    __DIR__.'/classes/'.'Lectern.inc.php'
+  ),
+  'footerScripts' => array(
+    __DIR__.'/js/'.'main.js'
+  )
 );
 ?>

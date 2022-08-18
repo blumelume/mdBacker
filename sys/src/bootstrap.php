@@ -23,9 +23,10 @@ define('locComponents', locFiles.'components/');
 including all classes specified in loader
 */
 function includeClasses( $dir ) {
+  $loaderContent = require($dir.'/loader.inc.php');
   $classes = array(
     array(locSys.'src/ExceptionHandler.inc.php'),
-    require($dir.'/loader.inc.php')
+    $loaderContent['classes']
   );
   foreach($classes as $c) {
     foreach ($c as $class) {
