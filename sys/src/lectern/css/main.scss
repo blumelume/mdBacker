@@ -1,0 +1,101 @@
+.mdBacker {
+  min-height: 100vh;
+
+  &.lectern {
+    display: flex;
+    flex-direction: column;
+
+    padding: $m-md $m-lg;
+
+    header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: $m-xs;
+
+      h1#name {
+        @extend .h5;
+        @extend .bold;
+        @extend .c-primary;
+      }
+      #module {
+        @extend .h5;
+        @extend .light;
+        @extend .c-grey;
+      }
+    }
+
+    main {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: $m-sm;
+      flex-grow: 1;
+
+      margin-top: $m-md;
+
+      nav#main {
+        width: 170px;
+
+        .accordion {
+          .section {
+            > .label {
+              position: relative;
+              @extend .h5;
+              @extend .light; 
+              @extend .c-secondary;
+              margin-bottom: $m-xxs;
+
+              &:before {
+                position: absolute;
+                left: -$m-xxs;
+                content: '/';
+                @extend .h5;
+                @extend .light; 
+                @extend .c-dim;
+              }
+            }
+
+            > .content {
+              margin-left: $m-xs;
+
+              li, ul { padding-top: $m-xxs/3; }
+              li {
+                &::marker {
+                  content: '>';
+                  color: $c-secondary-light;
+                }
+                padding-left: $m-xxs/2;
+              }
+              ul { margin-left: $m-xxs; }
+
+              * {
+                list-style-type: none;
+                list-style-position: outside;
+              }
+            }
+          }
+        }
+      }
+
+      > .content {
+        width: 100%;
+        background-color: $c-secondary;
+      }
+    }
+
+  }
+
+  .diagonal {
+    width: 15px; height: 35px;
+    position: relative;
+    &:after {
+      position: absolute;
+      left: calc(50% - 1px); top: 0;
+      content: '';
+      width: 2px; height: 35px;
+      background-color: $c-dim;
+      transform: rotate(20deg);
+    }
+  }
+}
