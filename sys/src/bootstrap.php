@@ -23,23 +23,13 @@ define('locComponents', locFiles.'components/');
 including all classes specified in loader
 */
 function includeClasses( $dir ) {
-  $loaderContent = require($dir.'/loader.inc.php');
-  $classes = array(
-    array(locSys.'src/ExceptionHandler.inc.php'),
-    $loaderContent['classes']
-  );
-  foreach($classes as $c) {
-    foreach ($c as $class) {
-      require($class);
-    }
-  }
-
-  /*
-  error / exception handling
-  */
-  $exceptionHandler = new \ExceptionHandler();
-  set_exception_handler([$exceptionHandler, 'handle']);
+  requireFilesFromLoader($dir, 'classes');
 }
+
+/* error / exception handling */
+require('ExceptionHandler.inc.php');
+$exceptionHandler = new \ExceptionHandler();
+set_exception_handler([$exceptionHandler, 'handle']);
 
 /*
 global functions
@@ -47,5 +37,19 @@ global functions
 function redirect($loc) {
   header('Location: '.$loc);
   die();
+}
+
+/*
+requireFilesFromLoader()
+requires all files from specified loader file of specfied kind
+* $loaderDir -> base-directory of the targeted loader (e.g.: absolute path to lectern)
+* $kind -> kind of files to require (e.g. classes, footerScripts, ...)
+*/
+function requireFilesFromLoader($loaderDir, $kind) {
+  $loaderContent = require($loaderDir.'/loader.inc.php');
+
+  foreach($loaderContent[$kind] as $file) {
+    require($file);
+  }
 }
 ?>
