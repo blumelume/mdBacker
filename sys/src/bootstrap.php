@@ -48,8 +48,10 @@ requires all files from specified loader file of specfied kind
 function requireFilesFromLoader($loaderDir, $kind) {
   $loaderContent = require($loaderDir.'/loader.inc.php');
 
-  foreach($loaderContent[$kind] as $file) {
-    require($file);
+  if (is_array($loaderContent) && array_key_exists($kind, $loaderContent)) {
+    foreach($loaderContent[$kind] as $file) {
+      require($file);
+    }
   }
 }
 ?>
