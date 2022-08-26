@@ -32,7 +32,7 @@ class Lectern {
       if (!file_exists($filename.'.json')) {
         return '';
       }
-      $pages .= '<li class="file" id="pages/'.$parent.'"><span>'.$filename.'</span>';
+      $pages .= '<li class="file" id="pages/'.$parent.'"><button>'.$filename.'</button>';
     }
 
     $dir = glob('*');

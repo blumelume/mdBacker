@@ -56,9 +56,8 @@
               }
             }
 
-            > .content {
-              margin-left: $m-xs;
-
+            > ul.content {
+              
               li, ul { padding-top: $m-xxs/3; }
               li {
                 &::marker {
@@ -66,6 +65,14 @@
                   color: $c-secondary-light;
                 }
                 padding-left: $m-xxs/2;
+                
+                button {
+                  font-family: 'Sharp Grotesk';
+                  font-size: 0.9em;
+                  line-height: 1.2em;
+                  background-color: transparent;
+                  &.curr { @extend .bold; }
+                }
               }
               ul { margin-left: $m-xxs; }
 
