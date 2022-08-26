@@ -50,17 +50,7 @@ $lectern = new \mdBacker\lectern\classes\Lectern();
           
           <div class='section' id='files'>
             <h2 class='label'>pages</h2>
-            <ul class="content">
-              <li class="file">home</li>
-              <li class="file">about</li>
-              <li class="file">
-                blog
-                <ul>
-                  <li>How I built my own flat-file CMS</li>
-                </ul>
-              </li>
-            </ul>
-
+            <?= $lectern->displayPages() ?>
           </div>
 
         </div>
