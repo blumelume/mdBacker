@@ -72,7 +72,7 @@ mixins & misc.
 General
 */
 html {
-  font-family: 'Basier Circle', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 15px;
   color: $c-copy;
@@ -206,7 +206,8 @@ p, .copy {
 }
 
 .hero, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-  line-height: 1.2em;
+  font-family: 'Sharp Grotesk';
+  line-height: 1.3em;
 }
 .hero, .h1, .h2, .h3 {
   text-transform: lowercase;
@@ -219,41 +220,37 @@ p, .copy {
   }
 }
 h1, .h1 {
-  font-size: 5.33rem;
-  font-weight: 500;
-}
-h2, .h2 {
-  font-size: 3.6rem;
-  font-weight: 700;
-}
-h3, .h3 {
   font-size: 3rem;
   font-weight: 500;
 }
+h2, .h2 {
+  font-size: 2.43rem;
+  font-weight: 300;
+}
+h3, .h3 {
+  font-size: 2.14rem;
+  font-weight: 400;
+}
 h4, .h4 {
-  font-size: 2.13rem;
-  font-weight: 700;
+  font-size: 1.78rem;
+  font-weight: 500;
   &.small {
     font-weight: 400;
   }
 }
 h5, .h5 {
-  font-size: 1.33rem;
-  font-weight: 500;
-  &.small {
-    font-weight: 400;
+  font-size: 1.28rem;
+  font-weight: 400;
+  &.big {
+    font-weight: 600;
   }
 
-  @include md {
-    font-size: 1.4rem;
-  }
   @include sm {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 }
 .subtitle {
   @extend .h5;
-  font-weight: 400;
 }
 
 b, .bold, .big  { font-weight: 500; }

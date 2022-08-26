@@ -1,0 +1,61 @@
+/*
+Sharp Grotesk
+* 300
+* 400
+* 500
+* 600
+*/
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts/SharpGrotesk-Light20.otf');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts/SharpGrotesk-Book20.otf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts//SharpGrotesk-Medium20.otf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts//SharpGrotesk-SemiBold20.otf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/*
+Roboto
+* 400 & 400 ital.
+* 700 & 700 ital.
+*/
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap');
+  font-weight: 700;
+  font-style: normal;
+}
