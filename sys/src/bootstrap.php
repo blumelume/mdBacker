@@ -28,8 +28,8 @@ function includeClasses( $dir ) {
 
 /* error / exception handling */
 require('ExceptionHandler.inc.php');
-$exceptionHandler = new \ExceptionHandler();
-set_exception_handler([$exceptionHandler, 'handle']);
+// $exceptionHandler = new \ExceptionHandler();
+// set_exception_handler([$exceptionHandler, 'handle']);
 
 /*
 global functions
@@ -53,5 +53,12 @@ function requireFilesFromLoader($loaderDir, $kind) {
       require($file);
     }
   }
+}
+
+function sortDirArrayByKind($a, $b) {
+  $aKind = (!is_dir($a)) ? is_file($a) : true;
+  $bKind = (!is_dir($b)) ? is_file($a) : true;
+  
+  return ($aKind < $bKind) ? 1 : (($aKind > $bKind) ? -1 : 0);
 }
 ?>

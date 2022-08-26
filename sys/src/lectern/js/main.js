@@ -1,14 +1,13 @@
 $( document ).ready( function() {
 
-  $( 'nav#main .accordion#sections .section li' ).each( function(i, el) {
+  $( 'nav#main .accordion#sections .section li button' ).each( function(i, el) {
     href = window.location.href;
 
     t = href.substring( href.indexOf('lectern') + 7 ); // removing everything before and including 'lectern'
     t = t.replace(/^\/|\/$/g, '')
-    console.log(t);
 
     /* finding currently active element and highlighting it (adding class 'curr') */
-    if (el.id == t) {
+    if (el.parentNode.id == t) {
       $(el).addClass( 'curr' );
     }
 
@@ -16,7 +15,7 @@ $( document ).ready( function() {
     $(el).click( (evt) => {
       evt.stopPropagation();
 
-      s = href.substring(href.indexOf('lectern'), 0) + 'lectern/' + el.id;
+      s = href.substring(href.indexOf('lectern'), 0) + 'lectern/' + el.parentNode.id;
       window.location.href = s;
 
     });
