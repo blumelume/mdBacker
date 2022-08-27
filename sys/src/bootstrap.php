@@ -16,7 +16,7 @@ define('locDef', locSys.'def/');
 define('locConfigs', locFiles.'configs/');
 define('locTemplates', locFiles.'templates/');
 define('locPages', locFiles.'pages/');
-define('locComponents', locFiles.'components/');
+define('locModule', locFiles.'components/');
 
 
 /*
