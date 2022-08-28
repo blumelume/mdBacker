@@ -50,7 +50,7 @@ Setting up the page
 */
 $GLOBALS['page'] = new \mdBacker\cabinet\classes\Page(
   $pageObject['name'],
-  locPages.$pageObject['path']
+  locPages.$pageObject['path'].'/'
 );
 if ($page) {
   $page->insert();
