@@ -4,23 +4,20 @@ namespace mdBacker\cabinet\classes;
 class Component {
   public $name;
   public $template;
-  protected $config;
-  protected $locSetup;
-  protected $locFields;
+  public $config;
 
-  function __construct( $name, $path, $parent = null, $fields = null ) {
+  function __construct( $name, $path, $fields = null ) {
     $this->path = $path;
     $this->name = $name;
     
-    $this->parent = $parent;
     $this->fields = $fields;
 
+    $this->fieldList = array();
     $this->setup();
     $this->setupFields();
-
-    return true;
   }
 
+  // check if specified file is a system default
   function determineDefault( $file ) {
     return substr($file, 0, 3) === 'def';
   }
@@ -35,24 +32,21 @@ class Component {
     * the template is determined by the config, instead of the setup-file
   */
   protected function setup() {
-    $this->setup = new Config(
-      ($this->parent !== null) ? $this->parent->setup->path : $this->path.'/'.$this->name.'.json'
+    $this->setup = new \mdBacker\cabinet\classes\Config( $this->path.$this->name.'.json' );
+
+    $this->config = $this->setup->data['config'];
+    $this->config = new Config( 
+      ($this->determineDefault($this->config) ? locDef.'configs/' : locConfigs) . $this->setup->data['config'] . '.json'
     );
 
-    $this->config = $this->determineDefault($this->setup->data['config']);
-    // if config is a sys-default, look in defaults location
-    $this->config = new Config(
-      (($this->parent !== null) ? ($this->config ? locDef.'components/'.$this->name : locComponents.$this->name) : ($this->config ? locDef.'configs/' : locConfigs) . $this->setup->data['config']) . '.json'
-    );
-
-    $this->template = (($this->parent !== null) ? $this->config->data['template'] : $this->setup->data['template']);
-    // if template is a sys-default, look in defaults location
+    $this->template = $this->setup->data['template'];
     $this->template = (($this->determineDefault($this->template)) ? locDef.'templates/' : locTemplates) . $this->template .'.php'; 
   }
 
   protected function setupFields() {
     foreach ( $this->config->data['fields'] as $field=>$attr ) {
       $this->$field = $this->parseField( $field, $attr );
+      array_push($this->fieldList, $field);
     }
   }
 
@@ -79,7 +73,7 @@ class Component {
 
       $fieldContent = $fieldsArray[$field];
 
-      if (gettype($fieldContent) === 'string' && $this->parent === null) {
+      if (gettype($fieldContent) === 'string') {
         $prevDir = getcwd();
         chdir( $this->path );
         if ( file_exists($fieldContent) ){ // content is path to file
@@ -100,10 +94,7 @@ class Component {
         return $fieldContent;
 
       case 'comp': // File is Component -> create and return Object
-        $c = new Component( $field, locPages, $this, $fieldsArray );
-        if (!$c) {
-          throw $c;
-        }
+        $c = new \mdBacker\cabinet\classes\Module( $field, locPages, $this->setup, $fieldsArray );
         return $c;
       
       case 'int':

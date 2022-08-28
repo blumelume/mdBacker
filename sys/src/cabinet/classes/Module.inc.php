@@ -5,7 +5,6 @@ class Module extends \mdBacker\cabinet\classes\Component {
   function __construct( $name, $path, $setup, $fields) {
     $this->setup = $setup;
     parent::__construct( $name, $path, $fields );
-    $this->setupFields();
   }
 
   protected function setup() {
