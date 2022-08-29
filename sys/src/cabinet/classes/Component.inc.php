@@ -63,6 +63,8 @@ class Component {
     $fieldsArray = ($this->fields === null) ? $this->setup->data['fields'] : $this->fields;
     $fieldsArray = ($fieldType === 'comp') ? $fieldsArray[$field] : $fieldsArray;
 
+    $fieldContent = null;
+
     if ($fieldType !== 'comp') {
       if (!array_key_exists($field, $fieldsArray)) {
         if ($fieldRequired) {
@@ -85,31 +87,25 @@ class Component {
 
     switch ($fieldType) { 
       case 'md': // File is Markdown -> parse with Parsedown
-        return $GLOBALS['mdParser']->text( $fieldContent );
-
-      case 'json': // File is JSON -> json_decode
-        return $fieldContent;
-
-      case 'html':
-        return $fieldContent;
+        $fieldContent = $GLOBALS['mdParser']->text( $fieldContent );
+        break;
 
       case 'comp': // File is Component -> create and return Object
-        $c = new \mdBacker\cabinet\classes\Module( $field, locPages, $this->setup, $fieldsArray );
-        return $c;
+        $fieldContent = new \mdBacker\cabinet\classes\Module( $field, locPages, $this->setup, $fieldsArray );
+        break;
       
       case 'int':
         if (!filter_var($fieldContent, FILTER_VALIDATE_INT)) {
-          throw new FieldException( 200, [$fieldType, $fieldContent] );
+          //throw new FieldException( 200, [$fieldType, $fieldContent] );
         }
-        return $fieldContent;
-
-      case 'plain':
-        return $fieldContent;
+        break;
 
       default: // File-type unknown
-        throw new FieldException( 100, [$fieldType] );
-        return;
+        //throw new FieldException( 100, [$fieldType] );
+        break;
     }
+
+    return new \mdBacker\cabinet\classes\Field($field, $fieldRequired, $fieldType, $fieldContent);
   }
 
   public function insert() {
