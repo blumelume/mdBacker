@@ -53,6 +53,7 @@ $GLOBALS['page'] = new \mdBacker\cabinet\classes\Page(
   locPages.$pageObject['path'].'/'
 );
 if ($page) {
+  $page->parseFields( $page );
   $page->insert();
 } else {
   throw $page;

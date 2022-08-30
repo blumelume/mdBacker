@@ -66,15 +66,15 @@ class Component {
     $fieldContent = null;
 
     if ($fieldType !== 'comp') {
-      if (!array_key_exists($field, $fieldsArray)) {
-        if ($fieldRequired) {
-          throw new FieldException(300, [$field]);
-        }
-        return;
+
+      if (array_key_exists($field, $fieldsArray)) {
+        $fieldContent = $fieldsArray[$field];
+      
+      } else if ($fieldRequired) {
+        throw new FieldException(300, [$field]);
       }
 
-      $fieldContent = $fieldsArray[$field];
-
+      // check if content is filepath
       if (gettype($fieldContent) === 'string') {
         $prevDir = getcwd();
         chdir( $this->path );
@@ -83,26 +83,9 @@ class Component {
         }
         chdir($prevDir);
       }
-    }
 
-    switch ($fieldType) { 
-      case 'md': // File is Markdown -> parse with Parsedown
-        $fieldContent = $GLOBALS['mdParser']->text( $fieldContent );
-        break;
-
-      case 'comp': // File is Component -> create and return Object
-        $fieldContent = new \mdBacker\cabinet\classes\Module( $field, locPages, $this->setup, $fieldsArray );
-        break;
-      
-      case 'int':
-        if (!filter_var($fieldContent, FILTER_VALIDATE_INT)) {
-          //throw new FieldException( 200, [$fieldType, $fieldContent] );
-        }
-        break;
-
-      default: // File-type unknown
-        //throw new FieldException( 100, [$fieldType] );
-        break;
+    } else {
+      $fieldContent = new \mdBacker\cabinet\classes\Module( $field, locPages, $this->setup, $fieldsArray );
     }
 
     return new \mdBacker\cabinet\classes\Field($field, $fieldRequired, $fieldType, $fieldContent);
