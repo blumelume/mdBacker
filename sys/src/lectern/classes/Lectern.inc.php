@@ -4,7 +4,7 @@ namespace mdBacker\lectern\classes;
 class Lectern {
 
   function __construct() {
-    $this->page = $this->parsePageFromUrl();
+    $this->parseUrl();
   }
 
   public function compileScss( $scss ) {
@@ -12,16 +12,36 @@ class Lectern {
     return $this->css;
   }
 
-  protected function parsePageFromUrl() {
+  protected function parseUrl() {
     if (!isset($_GET['p'])) {
       header('HTTP/1.1 404 Not Found');
       die();
     }
     
-    $p = str_replace('lectern', '', $_GET['p']); // removing 'lectern' from url
-    $p = (substr($p, 0, 1) == '/') ? substr($p, 1) : $p; // removing leading slash
-    $p = (substr($p, -1, 1) == '/') ? substr($p, 0, -1) : $p; // remove trailing slash
-    return explode('/', $p);
+    $url = str_replace('lectern', '', $_GET['p']); // removing 'lectern' from url
+    $url = (substr($url, 0, 1) == '/') ? substr($url, 1) : $url; // removing leading slash
+    $url = (substr($url, -1, 1) == '/') ? substr($url, 0, -1) : $url; // remove trailing slash
+    $url = explode('/', $url);
+
+    $this->section = $url['0'];
+    switch ($this->section) {
+      case 'pages':
+        $pagePath = implode('/', array_slice($url, 1));
+
+        \mdBacker\sys\requireFilesFromLoader(locSys.'src/cabinet', 'classes');
+        
+        require_once ROOTPATH.'/vendor/autoload.php';
+        $GLOBALS['mdParser'] = new \Parsedown();
+
+        $this->object = new \mdBacker\cabinet\classes\Page( $url[count($url)-1], locPages.$pagePath.'/' );
+    }
+  }
+
+  public function insert() {
+    switch ($this->section) {
+      case 'pages':
+        require_once(locSys.'src/lectern/templates/pages.inc.php');
+    }
   }
 
   protected function loopPageDir( $parent = '' ) {

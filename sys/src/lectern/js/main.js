@@ -21,6 +21,10 @@ $( document ).ready( function() {
     });
   });
 
-  console.log( window.location.search );
+  $( '.content form.fields textarea' ).each( function(i, el) {
+    el.simplemde = new SimpleMDE({
+      element: el
+    });
+  });
 
 });

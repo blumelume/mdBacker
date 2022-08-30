@@ -57,6 +57,9 @@ $lectern = new \mdBacker\lectern\classes\Lectern();
       </nav>
 
       <div class='content'>
+        <?php
+        $lectern->insert();
+        ?>
       </div>
 
     </main>
@@ -64,6 +67,8 @@ $lectern = new \mdBacker\lectern\classes\Lectern();
 
     <!-- footer : external scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
     <!-- footer : internal scripts -->
     <script type='text/javascript'>

@@ -87,7 +87,47 @@
 
       > .content {
         width: 100%;
-        background-color: $c-secondary;
+        overflow-x: hidden;
+        
+        .fields, fieldset {
+          display: flex;
+          flex-direction: column;
+          gap: $m-sm;
+        }
+        .fields {
+          .field {
+            display: flex;
+            flex-direction: column;
+            gap: $m-xxs;
+            
+            input, textarea {
+              padding: $m-xs;
+              border: none;
+              border-radius: 10px;
+              background-color: $c-light-grey;
+            }
+            textarea {
+              min-height: $w4;
+              resize: vertical;
+              border-bottom-right-radius: 0px;
+            }
+            label { @extend h5; }
+          }
+
+          .field-parent {
+            gap: $m-xs;
+            padding: $m-sm 0;
+            border: none;
+            &:first-child { padding-top: 0; }
+            &:last-child { padding-bottom: 0; }
+
+            label {
+              @extend h6;
+            }
+            legend { @extend h5; }
+          }
+        }
+
       }
     }
 
