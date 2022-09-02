@@ -3,13 +3,10 @@ namespace mdBacker\lectern\templates;
 
 function displayField($field) {
   ?>
-  <div class='field'>
+  <div class='field <?php echo ($field->type === 'md') ? 'text' : ''; ?>'>
     
     <label for='<?= $field->name ?>'>
-      <?= $field->name ?>
-      <?php if ($field->required) { ?>
-        <span class='required' aria-label='required'>*</span>
-      <?php } ?>
+      <?= $field->name ?><?php if ($field->required) { ?><div class='required' aria-label='required'></div><?php } ?>
     </label>
     
     <?php if ($field->type === 'md') { ?>
@@ -33,7 +30,9 @@ function fetchPageFields( $parentModule ) {
     ?>
 
       <fieldset class='field-parent'>
-        <legend><?=$fieldContent->name?></legend>
+        <legend>
+          <?=$fieldContent->name?><?php if ($field->required) { ?><div class='required' aria-label='required'></div><?php } ?>
+        </legend>
         <?php fetchPageFields($fieldContent); ?>
       </fieldset>
     
@@ -46,7 +45,7 @@ function fetchPageFields( $parentModule ) {
 
 <form class='fields'>
 
-  <p class='disclaimer-required'><span class='required' aria-label='required'>*</span> required fields</p>
+  <div class='disclaimer-required'>required fields<div class='required' aria-label='required'></div></div>
 
   <?php
   fetchPageFields($this->object);

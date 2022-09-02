@@ -87,11 +87,10 @@
 
       > .content {
         width: 100%;
-        overflow-x: hidden;
         
-        .fields, fieldset {
+        .fields, .field-parent {
           display: flex;
-          flex-direction: column;
+          flex-flow: row wrap;
           gap: $m-sm;
         }
         .fields {
@@ -99,24 +98,42 @@
             display: flex;
             flex-direction: column;
             gap: $m-xxs;
+            &:not(.text) { flex-basis: 50%; }
             
             input, textarea {
               padding: $m-xs;
               border: none;
               border-radius: 10px;
               background-color: $c-light-grey;
+              @include box-shadow( 0px, 10px, 30px, 0px, rgba($c-copy, 0) );
+
+              outline-offset: -1px;
+              outline-color: $c-light-grey;
+              &:focus-visible {
+                outline-offset: -1px;
+                outline-color: $c-dim;
+              }
+              &:hover, &:focus-visible {
+                @include box-shadow( 0px, 15px, 30px, 0px, rgba($c-copy, 0.01) );
+              }
+              @include transition( 0.3s, ease-in-out );
             }
             textarea {
               min-height: $w4;
               resize: vertical;
               border-bottom-right-radius: 0px;
             }
-            label { @extend h5; }
+            label {
+              @extend h5;
+              color: $c-grey;
+            }
           }
 
           .field-parent {
             gap: $m-xs;
-            padding: $m-sm 0;
+            flex-basis: 100%;
+
+            margin-bottom: $m-sm;
             border: none;
             &:first-child { padding-top: 0; }
             &:last-child { padding-bottom: 0; }
@@ -124,11 +141,32 @@
             label {
               @extend h6;
             }
-            legend { @extend h5; }
+            legend {
+              margin-bottom: $m-xxs; // positioning legend below fieldset-padding
+              @extend h5;
+            }
           }
+
+          .disclaimer-required { @extend .copy.small; }
         }
 
       }
+    }
+
+    // Markdown Editor
+    .editor-toolbar, .CodeMirror {
+      border: none;
+      @extend input;
+    }
+    .editor-toolbar {
+      padding-bottom: $m-xxs/2 !important;
+      padding-top: $m-xxs/2 !important;
+      border-bottom-right-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+    }
+    .CodeMirror {
+      border-top-right-radius: 0px !important;
+      border-top-left-radius: 0px !important;
     }
 
   }
