@@ -94,6 +94,9 @@
           gap: $m-sm;
         }
         .fields {
+          position: relative;
+          //@extend .w3;
+
           .field {
             display: flex;
             flex-direction: column;
@@ -148,6 +151,24 @@
           }
 
           .disclaimer-required { @extend .copy.small; }
+
+          .buttons {
+            @extend .w2;
+            display: flex;
+            flex-basis: 100%;
+            flex-direction: row;
+            justify-content: flex-end;
+
+            position: sticky;
+            bottom: 0;
+            z-index: 1000;
+
+            padding: $m-xxs 0;
+            background: $c-light;
+
+            button[type='submit'] {
+            }
+          }
         }
 
       }
@@ -165,8 +186,41 @@
       border-bottom-left-radius: 0px !important;
     }
     .CodeMirror {
+      max-height: 500px;
       border-top-right-radius: 0px !important;
       border-top-left-radius: 0px !important;
+
+      .CodeMirror-selected {
+        background-color: rgba($c-primary, 0.25);
+      }
+      .CodeMirror-code {
+        // * { @extend .copy; }
+        // .cm-header-1 { @extend h1; }
+        // .cm-header-2 { @extend h2; }
+        // .cm-header-3 { @extend h3; }
+        // .cm-header-4 { @extend h4; }
+        // .cm-header-3 {
+        //   font-size 125%
+        //   line-height 125%
+        // }
+        // .cm-header-4 {
+        //   font-size 110%
+        //   line-height 110%
+        // }
+        // .cm-comment {
+        //   background rgba(0, 0, 0, .05)
+        // }
+        //   border-radius 2px
+        // .cm-link {
+        //   color #7f8c8d
+        // }
+        // .cm-url {
+        //   color #aab2b3
+        // }
+        // .cm-strikethrough {
+        //   text-decoration line-through
+        // }
+      }
     }
 
   }

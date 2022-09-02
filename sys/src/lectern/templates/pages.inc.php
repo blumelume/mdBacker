@@ -45,10 +45,16 @@ function fetchPageFields( $parentModule ) {
 
 <form class='fields'>
 
-  <div class='disclaimer-required'>required fields<div class='required' aria-label='required'></div></div>
+  <span class='w3'>
+    <div class='disclaimer-required'>required fields<div class='required' aria-label='required'></div></div>
+    
+    <?php
+    fetchPageFields($this->object);
+    ?>
+  </span>
 
-  <?php
-  fetchPageFields($this->object);
-  ?>
+  <fieldset class='buttons'>
+    <button type='submit' aria-label='save'>save</button>
+  </fieldset>
 
 </form>
