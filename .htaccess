@@ -8,6 +8,13 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI} !(/$|\.) 
 RewriteRule (.*) %{REQUEST_URI}/ [R=301,L] 
 
+RewriteCond %{REQUEST_URI} /files [NC]
+RewriteRule ^.*files\/(.*)$ files/$1 [NC,QSA]
+
+RewriteCond %{REQUEST_URI} /sys [NC]
+RewriteRule ^.*sys\/(.*)$ sys/$1 [NC,QSA]
+
+RewriteCond %{REQUEST_URI} !(/files|/sys) [NC]
 RewriteCond %{REQUEST_URI} /lectern [NC]
 RewriteCond %{REQUEST_URI} !\.(bmp|css|gif|ico|jpg|jpeg|js|png|shtml|zip|mp3|mpeg|wav|pdf|xml|txt)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -15,10 +22,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.*)$ sys/src/lectern/index.php?p=$1 [NC,QSA]
 
+RewriteCond %{REQUEST_URI} !(/lectern|/files|/sys) [NC]
 RewriteCond %{REQUEST_URI} !\.(bmp|css|gif|ico|jpg|jpeg|js|png|shtml|zip|mp3|mpeg|wav|pdf|xml|txt)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} !/lectern [NC]
 
 RewriteRule ^(.*)$ sys/src/cabinet/index.php?p=$1 [NC,QSA]
 
