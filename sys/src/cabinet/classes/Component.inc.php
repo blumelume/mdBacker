@@ -45,50 +45,48 @@ class Component {
 
   protected function setupFields() {
     foreach ( $this->config->data['fields'] as $field=>$attr ) {
-      $this->$field = $this->parseField( $field, $attr );
+      $this->$field = $this->initField( $field, $attr );
       array_push($this->fieldList, $field);
     }
   }
 
   /*
-  parseField()
+  initField()
   * determining the value of a given field
-  * according to different data-types
-  * currently supported types: md(Markdown), json, html, int(INTEGER), plain
+  * from a given source (either $this->setup or a seperate dedicated file)
   */
-  protected function parseField( $field, $attr ) {
-    $fieldRequired = $attr['required'];
-    $fieldType = $attr['type'];
+  protected function initField( $fieldName, $fieldAttributes ) {
+
+    $field = new \mdBacker\cabinet\classes\Field(
+      $fieldName, 
+      $fieldAttributes['required'], 
+      $fieldAttributes['type'], 
+      //$fieldContent
+    );
 
     $fieldsArray = ($this->fields === null) ? $this->setup->data['fields'] : $this->fields;
-    $fieldsArray = ($fieldType === 'comp') ? $fieldsArray[$field] : $fieldsArray;
+    $fieldsArray = ($field->type === 'comp') ? $fieldsArray[$field->name] : $fieldsArray;
 
-    $fieldContent = null;
+    if ($field->type !== 'comp') {
 
-    if ($fieldType !== 'comp') {
-
-      if (array_key_exists($field, $fieldsArray)) {
-        $fieldContent = $fieldsArray[$field];
-      
-      } else if ($fieldRequired) {
-        throw new FieldException(300, [$field]);
+      if (array_key_exists($field->name, $fieldsArray)) {
+        $field->content = $fieldsArray[$field->name];
+      } else if ($field->required) {
+        throw new FieldException(300, [$field->name]);
       }
 
       // check if content is filepath
-      if (gettype($fieldContent) === 'string') {
-        $prevDir = getcwd();
-        chdir( $this->path );
-        if ( file_exists($fieldContent) ){ // content is path to file
-          $fieldContent = file_get_contents( $fieldContent );
+      if (gettype($field->content) === 'string') {
+        if ( file_exists($this->path.$field->content) ){ // content is path to file
+          $field->content = file_get_contents( $this->path.$field->content );
         }
-        chdir($prevDir);
       }
 
     } else {
-      $fieldContent = new \mdBacker\cabinet\classes\Module( $field, locPages, $this->setup, $fieldsArray );
+      $field->content = new \mdBacker\cabinet\classes\Module( $field->name, locPages, $this->setup, $fieldsArray );
     }
 
-    return new \mdBacker\cabinet\classes\Field($field, $fieldRequired, $fieldType, $fieldContent);
+    return $field;
   }
 
   public function insert() {

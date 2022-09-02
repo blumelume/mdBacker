@@ -8,7 +8,7 @@ class Field {
   public string $type;
   public $content;
 
-  function __construct($name, $required, $type, $content) {
+  function __construct($name, $required, $type, $content = null) {
     $this->name = $name;
     $this->required = $required;
     $this->type = $type;
@@ -20,10 +20,6 @@ class Field {
       case 'md': // File is Markdown -> parse with Parsedown
         $this->content = $GLOBALS['mdParser']->text( $this->content );
         break;
-
-      case 'comp': // File is Component -> create and return Object
-        //$fieldContent = new \mdBacker\cabinet\classes\Module( $field, locPages, $this->setup, $fieldsArray );
-        break;
       
       case 'int':
         if (!filter_var($this->content, FILTER_VALIDATE_INT)) {
@@ -31,8 +27,7 @@ class Field {
         }
         break;
 
-      default: // File-type unknown
-        //throw new FieldException( 100, [$fieldType] );
+      default: // nothing happens - the content stays unparsed / the same
         break;
     }
   }
