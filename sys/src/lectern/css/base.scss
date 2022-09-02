@@ -110,14 +110,14 @@ Containers / Spacers
 .m-xxs-b { padding-bottom: $m-xxs; }
 
 .whero, .w1, .w2, .w3, .w4 {
-  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
 }
-.whero { width: $whero; }
-.w1 { width: $w1; }
-.w2 { width: $w2; }
-.w3 { width: $w3; }
-.w4 { width: $w4; }
+.whero { max-width: $whero; }
+.w1 { max-width: $w1; }
+.w2 { max-width: $w2; }
+.w3 { max-width: $w3; }
+.w4 { max-width: $w4; }
 
 .gutter-xs {
   @include lg {
@@ -309,7 +309,7 @@ button, .button, .btn {
     @extend .copy.small;
     height: max-content; // for buttons inside flex-containers
     width: max-content;
-    padding: 1.5*$m-xxs $m-xs;
+    padding: $m-xxs $m-xs;
     line-height: 1em;
 
     color: $c-light;
@@ -365,6 +365,10 @@ button, .button, .btn {
 }
 
 form {
+  fieldset {
+    border: none;
+  }
+
   label, .required-disclaimer, .required {
     display: inline-block;
   }
@@ -372,6 +376,13 @@ form {
     width: 8px; height: 0.8em;
     margin-left: $m-xxs/2;
     background: no-repeat center/100% url('sys/src/lectern/assets/symbol_astrix.svg');
+  }
+
+  button {
+    @extend .primary;
+    &[type='submit'] {
+      @extend .slim;
+    }
   }
 }
 
